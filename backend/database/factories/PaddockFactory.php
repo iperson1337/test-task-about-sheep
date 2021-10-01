@@ -21,8 +21,6 @@ class PaddockFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => 'Загон'
-        ];
+        return [];
     }
 }
