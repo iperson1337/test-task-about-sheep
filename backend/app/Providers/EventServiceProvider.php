@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\{Paddock, Sheep};
-use App\Observers\{SheepObserver, PaddockObserver};
+use App\Models\{History, Paddock, Sheep};
+use App\Observers\{HistoryObserver, SheepObserver, PaddockObserver};
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,5 +31,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Sheep::observe(SheepObserver::class);
         Paddock::observe(PaddockObserver::class);
+        History::observe(HistoryObserver::class);
     }
 }
