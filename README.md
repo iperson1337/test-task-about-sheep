@@ -10,9 +10,12 @@ php artisan migrate --seed
 php artisan short-schedule:run --lifetime=100
 ```
 
-### Запуск frontend
+## Запуск frontend
 ```
 npm i
 cp .env.example .env
 npm run serve
 ```
+## Todo
+
+- [ ] Страничка с отчётом за каждый день или период дней по запросу.
