@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\HistoryController;
 use App\Http\Controllers\API\PaddockController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('paddocks')->group(function () {
     Route::get('/', [PaddockController::class, 'index']);
 });
+
+Route::get('/today', [HistoryController::class, 'today']);
