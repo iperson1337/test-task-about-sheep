@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\History;
-use App\Models\Paddock;
 use Illuminate\Support\Facades\Artisan;
 
 class HistoryObserver
@@ -16,23 +15,20 @@ class HistoryObserver
      */
     public function created(History $history)
     {
+        $history->day = $history->id;
+        $history->save();
+
         if ($history->id === 1) {
             Artisan::call('history:first_day');
         }
-        $greatestPaddock = Paddock::withCount('sheep')->orderBy('sheep_count', 'desc')->first();
-        if ($greatestPaddock) $greatestPaddock->sheep()->create();
+
+        Artisan::call('sheep:transfer');
 
         if (is_integer($history->id/10)) {
             Artisan::call('history:tenth_day');
         }
 
-        $transferSheep = $greatestPaddock ? $greatestPaddock->sheep()->latest()->first() : null;
-        $aloneSheepPaddock = Paddock::withCount('sheep')->having('sheep_count', 1)->first();
-        if ($aloneSheepPaddock && $transferSheep) {
-            $transferSheep->update([
-               'paddock_id' =>  $aloneSheepPaddock->id,
-            ]);
-        }
+
     }
 
     /**
