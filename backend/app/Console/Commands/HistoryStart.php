@@ -42,6 +42,7 @@ class HistoryStart extends Command
         $lastDay = $latestHistory ? $latestHistory->id + 1 : 1;
 
         History::create(['day' => $lastDay]);
+
         return 0;
     }
 }

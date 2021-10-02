@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Paddock;
+use App\Models\Sheep;
 use Illuminate\Console\Command;
 
 class HistoryTenthDay extends Command
@@ -37,6 +39,12 @@ class HistoryTenthDay extends Command
      */
     public function handle()
     {
+        $paddocks = Paddock::with('sheep')->withCount('sheep')->having('sheep_count', '>', 1)->get();
+        if ($paddocks->count() > 0) {
+            $randomPaddock = $paddocks->random();
+            if ($randomPaddock->sheep) $randomPaddock->sheep->random()->delete();
+        }
+
         return 0;
     }
 }

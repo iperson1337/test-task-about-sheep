@@ -24,7 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         //
+    }
+
+    protected function shortSchedule(\Spatie\ShortSchedule\ShortSchedule $schedule)
+    {
+         $schedule->command('history:start')->everySeconds(10);
     }
 
     /**

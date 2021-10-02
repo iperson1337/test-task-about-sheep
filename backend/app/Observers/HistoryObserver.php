@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\History;
 use App\Models\Paddock;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 
 class HistoryObserver
 {
@@ -28,7 +28,7 @@ class HistoryObserver
 
         $transferSheep = $greatestPaddock ? $greatestPaddock->sheep()->latest()->first() : null;
         $aloneSheepPaddock = Paddock::withCount('sheep')->having('sheep_count', 1)->first();
-        if ($aloneSheepPaddock) {
+        if ($aloneSheepPaddock && $transferSheep) {
             $transferSheep->update([
                'paddock_id' =>  $aloneSheepPaddock->id,
             ]);
