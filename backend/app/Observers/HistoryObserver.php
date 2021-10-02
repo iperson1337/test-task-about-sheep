@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\History;
+use App\Models\Sheep;
 use Illuminate\Support\Facades\Artisan;
 
 class HistoryObserver
@@ -20,15 +21,18 @@ class HistoryObserver
 
         if ($history->id === 1) {
             Artisan::call('history:first_day');
+        } else {
+            Artisan::call('sheep:transfer');
+
+            if (is_integer($history->id / 10)) Artisan::call('history:tenth_day');
         }
 
-        Artisan::call('sheep:transfer');
+        $sheep = [];
+        Sheep::get()->each(function ($item) use (&$sheep) {
+            $sheep[$item->id] = ['paddock_id' => $item->paddock_id];
+        });
 
-        if (is_integer($history->id/10)) {
-            Artisan::call('history:tenth_day');
-        }
-
-
+        $history->sheep()->sync($sheep);
     }
 
     /**

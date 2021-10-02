@@ -12,4 +12,9 @@ class History extends Model
     protected $fillable = [
         'day'
     ];
+
+    public function sheep(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Sheep::class, 'history_sheep', 'history_id', 'sheep_id')->withPivot('paddock_id');
+    }
 }

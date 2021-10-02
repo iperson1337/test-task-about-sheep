@@ -38,10 +38,7 @@ class HistoryStart extends Command
      */
     public function handle()
     {
-        $latestHistory = History::latest()->first();
-        $lastDay = $latestHistory ? $latestHistory->id + 1 : 1;
-
-        History::create(['day' => $lastDay]);
+        History::create();
 
         return 0;
     }

@@ -23,4 +23,9 @@ class Sheep extends Model
     {
         return $this->belongsTo(Paddock::class, 'paddock_id', 'id');
     }
+
+    public function history(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Sheep::class, 'history_sheep', 'sheep_id', 'history_id')->withPivot('paddock_id');
+    }
 }

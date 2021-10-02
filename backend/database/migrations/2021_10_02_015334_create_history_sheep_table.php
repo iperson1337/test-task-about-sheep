@@ -22,6 +22,7 @@ class CreateHistorySheepTable extends Migration
                 ->constrained('sheep')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->unsignedBigInteger('paddock_id');
             $table->primary(['history_id', 'sheep_id']);
         });
     }
