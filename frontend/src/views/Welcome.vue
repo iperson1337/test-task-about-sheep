@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3>Формачка для овечек</h3>
+      <h3>День {{ today }}</h3>
     </div>
     <div class="card-body">
       <div class="row">
@@ -26,16 +26,23 @@ export default {
   data() {
     return {
       paddocks: [],
+      today: 1,
     }
   },
   mounted() {
     this.getPaddocks()
+    this.getToday()
   },
   methods: {
     async getPaddocks() {
       const {data} = await this.$axios.get('/api/paddocks');
       this.paddocks = data.data;
-    }
+    },
+    async getToday() {
+      const {data} = await this.$axios.get('/api/today');
+      console.log(data)
+      this.today = data.today.day;
+    },
   }
 }
 </script>
