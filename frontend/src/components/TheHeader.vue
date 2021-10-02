@@ -8,10 +8,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Главная</a>
+            <router-link :to="{ name: 'welcome' }" class="nav-link" exact-active-class="active">Главная</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Статистика</a>
+            <router-link :to="{ name: 'stats' }" class="nav-link" active-class="active">Статистика</router-link>
           </li>
         </ul>
       </div>
