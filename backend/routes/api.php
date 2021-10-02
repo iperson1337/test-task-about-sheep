@@ -21,10 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/stats', [StatsController::class, 'index']);
-
 Route::prefix('paddocks')->group(function () {
     Route::get('/', [PaddockController::class, 'index']);
 });
 
-Route::get('/today', [HistoryController::class, 'today']);
+Route::prefix('histories')->group(function () {
+    Route::get('/', [HistoryController::class, 'index']);
+    Route::get('/stats', [HistoryController::class, 'stats']);
+    Route::get('/last-day', [HistoryController::class, 'lastDay']);
+});
